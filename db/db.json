@@ -1,0 +1,45 @@
+{
+    "naus": [
+        {
+            "id": 1,
+            "nom": "USS Enterprise",
+            "capacitat": 1000,
+            "tripulacion": 430
+        },
+        {
+            "id": 2,
+            "nom": "USS Voyager",
+            "capacitat": 1500,
+            "tripulacion": 150
+        },
+        {
+            "id": 3,
+            "nom": "USS Defiant",
+            "capacitat": 50,
+            "tripulacion": 50
+        }
+    ],
+    "personatges":[
+        {
+            "id": 1,
+            "nom": "Spock",
+            "especie": "Vulcan",
+            "planeta": "Vulcan",
+            "nau": "USS Enterprise"
+        },
+        {
+            "id": 2,
+            "nom": "James T. Kirk",
+            "especie": "Humà",
+            "planeta": "Terra",
+            "nau": "USS Enterprise"
+        },
+        {
+            "id": 3,
+            "nom": "Jean-Luc Picard",
+            "especie": "Humà",
+            "planeta": "Terra",
+            "nau": "USS Enterprise-D"
+        }
+    ]
+}
