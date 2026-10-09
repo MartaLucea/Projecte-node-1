@@ -4,19 +4,19 @@
             "id": 1,
             "nom": "USS Enterprise",
             "capacitat": 1000,
-            "tripulacion": 430
+            "tripulacio": 430
         },
         {
             "id": 2,
             "nom": "USS Voyager",
             "capacitat": 1500,
-            "tripulacion": 150
+            "tripulacio": 150
         },
         {
             "id": 3,
             "nom": "USS Defiant",
             "capacitat": 50,
-            "tripulacion": 50
+            "tripulacio": 50
         }
     ],
     "personatges":[

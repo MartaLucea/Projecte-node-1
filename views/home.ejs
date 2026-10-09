@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestió de coses</title>
+</head>
+<body>
+    <header>
+        <h1>Gestió de coses</h1>
+    </header>
+
+    <main>
+        <% if (typeof username !== 'undefined' && username) { %>
+            <p>Benvingut, <%= username %></p>
+            <form action="/logout" method="POST">
+                <button type="submit">Tancar sessió</button>
+            </form>
+        <% } else { %>
+            <a href="/login">Iniciar sessió</a>
+        <% } %>
+
+        <section>
+            <h2>Llista de personatges</h2>
+
+                <a href="/personatges">
+                    Veure més personatges
+                </a>
+
+            <ul>
+                <% data.personatges.slice(0, 4).forEach(personatge => { %>
+                    <li>
+                        <strong><%= personatge.nom %></strong>
+                        <span>Espècie: <%= personatge.especie %></span>
+                        <span>Planeta: <%= personatge.planeta %></span>
+                        <span>Nau: <%= personatge.nau %></span>
+                    </li>
+                <% }) %>
+            </ul>
+        </section>
+
+        <section>
+            <h2>Llista de naus</h2>
+
+                <a href="/naus">
+                    Veure més naus
+                </a>
+
+            <ul>
+                <% data.naus.slice(0, 4).forEach(nau => { %>
+                    <li>
+                        <strong><%= nau.nom %></strong>
+                        <span>Capacitat: <%= nau.capacitat %></span>
+                        <span>Tripulació: <%= nau.tripulacio %></span>
+                    </li>
+                <% }) %>
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
