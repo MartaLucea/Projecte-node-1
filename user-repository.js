@@ -20,15 +20,14 @@ export class UserRepository{
         Validation.password(password)
         //2. Asegurarse que el username noooo existe
         const user=User.findOne({username})
-        if (user) throw new Error('username already exists')
+        if (user) throw new Error("L'usuari ja existeix")
 
         //3.Creamos un id si fuera base de datos normal, 
         // mejor que lo genere la base de datos
         const id=crypto.randomUUID()
         //salt row el valor 10 se utiliza para encryptar, más valor añade complejidad i mas tiempo
-        //const hashedPassword=bcrypt.hashSync(password,10);
-        //const hashedPassword=bcrypt.hashSync(password,SALT_ROUNDS); //bloquea el hilo principal osea tiempo de ejecucion por eso cambiams a hash
-        const hashedPassword=await bcrypt.hash(password,SALT_ROUNDS); //como hash devuelve una promesa hay que utilizar await delante y como un async no puede ir sin await lo incluimos en la cabecera static create
+        //hash devuelve una promesa, por eso hay que utilizar await y declarar la funcion como async
+        const hashedPassword=await bcrypt.hash(password,SALT_ROUNDS)
         //4. Creamos el usario
         User.create({
             _id:id,
@@ -42,12 +41,12 @@ export class UserRepository{
         Validation.password(password)
         //2. Asegurarse que el username existe
         const user=User.findOne({username})
-        // Si no existe error
-        if(!user) throw new Error('username does not exist')
+        // Si no existe error (el mateix missatge que amb la contrasenya, per no donar pistes)
+        if(!user) throw new Error('Usuari o contrasenya incorrectes')
         //no lo desencripta para compararlo    
         const isValid=await bcrypt.compare(password,user.password)
         
-        if (!isValid) throw new Error('password is invalid')
+        if (!isValid) throw new Error('Usuari o contrasenya incorrectes')
         //Per no enviar el password copiem tot el contingut menys el password
         const {password:_,...publicUser}=user
 
@@ -57,12 +56,12 @@ export class UserRepository{
 }
 class Validation {
     static username(username){
-        if(typeof username != 'string') throw new Error('username must be a string');
-        if(username.length < 3) throw new Error('Username superior a 3 caracteres');
+        if(typeof username != 'string') throw new Error("El nom d'usuari ha de ser text");
+        if(username.length < 3) throw new Error("El nom d'usuari ha de tenir almenys 3 caràcters");
 
     }
     static password(password){
-        if(typeof password != 'string') throw new Error('sdfjkl must be a string');
-        if(password.length < 6) throw new Error('password superior a 5 caracteres');
+        if(typeof password != 'string') throw new Error('La contrasenya ha de ser text');
+        if(password.length < 6) throw new Error('La contrasenya ha de tenir almenys 6 caràcters');
     }
 }

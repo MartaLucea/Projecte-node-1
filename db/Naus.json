@@ -1,0 +1,51 @@
+[
+  {
+    "id": 1,
+    "nom": "USS Enterprise",
+    "registre": "NCC-1701",
+    "classe": "Constitution",
+    "capacitat": 1000,
+    "estat": "En servei"
+  },
+  {
+    "id": 2,
+    "nom": "USS Voyager",
+    "registre": "NCC-74656",
+    "classe": "Intrepid",
+    "capacitat": 1500,
+    "estat": "En servei"
+  },
+  
+  {
+    "id": 3,
+    "nom": "USS Defiant",
+    "registre": "NCC-74205",
+    "classe": "Defiant",
+    "capacitat": 50,
+    "estat": "En servei"
+  },
+  {
+    "id": 4,
+    "nom": "USS Enterprise-D",
+    "registre": "NCC-1701-D",
+    "classe": "Galaxy",
+    "capacitat": 5000,
+    "estat": "En servei"
+  },
+  {
+    "id": 5,
+    "nom": "USS Discovery",
+    "registre": "NCC-1031",
+    "classe": "Crossfield",
+    "capacitat": 300,
+    "estat": "En reparació"
+  },
+  {
+    "id": 6,
+    "nom": "proba",
+    "registre": "NCC-2007",
+    "classe": "Galaxi",
+    "capacitat": 10,
+    "estat": "En reparació"
+  }
+]

@@ -16,7 +16,6 @@ router.get('/flota', (req, res) => {
 
     res.render('flota', { naus: llista, user: req.session.user });
 });
-
 // Detall d'una nau amb els personatges que hi ha dins
 router.get('/flota/:id', (req, res) => {
     const id = parseInt(req.params.id, 10);

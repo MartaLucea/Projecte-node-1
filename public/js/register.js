@@ -81,7 +81,6 @@ registerForm?.addEventListener('submit', e => {
             showMessage(registerSpan, 'No s\'ha pogut connectar amb el servidor', 'error');
         });
 });
-
 logoutButton?.addEventListener('click', e => {
     e.preventDefault();
     fetch('/logout', {

@@ -174,5 +174,4 @@ router.delete('/naus/:id', (req, res) => {
 
     res.redirect('/naus');
 });
-
 export default router;

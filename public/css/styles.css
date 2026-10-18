@@ -318,6 +318,5 @@ body.portada {
   gap: 1.5rem;
   align-items: start;
 }
-
 .acces .formulari { grid-template-columns: 1fr; align-items: stretch; margin-top: 0; }
 .acces .formulari h3 { margin: 0; color: var(--primary); }

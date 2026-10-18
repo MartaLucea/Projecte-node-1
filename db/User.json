@@ -1,1 +1,12 @@
-[{"_id":"125adf11-c7bc-4208-bc37-487b6c7b6f9a","username":"Marta","password":"$2b$10$I5wau/OLgluDKv1zumO5uO3/Il8T/Vi22jBubJciBTPsfVaPNreJe"}]
+[
+  {
+    "_id": "125adf11-c7bc-4208-bc37-487b6c7b6f9a",
+    "username": "Marta",
+    "password": "$2b$10$I5wau/OLgluDKv1zumO5uO3/Il8T/Vi22jBubJciBTPsfVaPNreJe"
+  },
+  {
+    "_id": "5d1c2f0e-8b7a-4c3e-9a41-2f6e7b0c9d11",
+    "username": "picard",
+    "password": "$2b$10$d.KA0EJpAcJU8CUtVkviG.wCHM4.DcX1fGMPdYdvNgC90OCxgZ/8K"
+  }
+]

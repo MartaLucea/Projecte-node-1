@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "nom": "Spock",
+    "especie": "Vulcanià",
+    "planeta": "Vulcan",
+    "rang": "Comandant",
+    "nauId": 1
+  },
+  {
+    "id": 2,
+    "nom": "James T. Kirk",
+    "especie": "Humà",
+    "planeta": "Terra",
+    "rang": "Capità",
+    "nauId": 1
+  },
+  {
+    "id": 3,
+    "nom": "Nyota Uhura",
+    "especie": "Humana",
+    "planeta": "Terra",
+    "rang": "Tinent",
+    "nauId": 1
+  },
+  {
+    "id": 4,
+    "nom": "Jean-Luc Picard",
+    "especie": "Humà",
+    "planeta": "Terra",
+    "rang": "Capità",
+    "nauId": 4
+  },
+  {
+    "id": 5,
+    "nom": "Data",
+    "especie": "Androide",
+    "planeta": "Omicron Theta",
+    "rang": "Tinent comandant",
+    "nauId": 4
+  },
+  {
+    "id": 6,
+    "nom": "Kathryn Janeway",
+    "especie": "Humana",
+    "planeta": "Terra",
+    "rang": "Capità",
+    "nauId": 2
+  },
+  {
+    "id": 7,
+    "nom": "Seven of Nine",
+    "especie": "Humana",
+    "planeta": "Terra",
+    "rang": "Civil",
+    "nauId": 2
+  },
+  {
+    "id": 8,
+    "nom": "Benjamin Sisko",
+    "especie": "Humà",
+    "planeta": "Terra",
+    "rang": "Capità",
+    "nauId": 3
+  },
+  {
+    "id": 9,
+    "nom": "Worf",
+    "especie": "Klingon",
+    "planeta": "Qo'noS",
+    "rang": "Tinent comandant",
+    "nauId": 3
+  }
+]

@@ -162,5 +162,4 @@ router.delete('/personatges/:id', (req, res) => {
 
     res.redirect('/personatges');
 });
-
 export default router;
