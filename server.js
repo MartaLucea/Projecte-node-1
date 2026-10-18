@@ -1,19 +1,19 @@
 /*
 npm install
-npm install jsonwebtoken cookie-parser
-npm install db-local bcryptjs method-override
 npm run dev
 */
 
-import express from "express";
-import fs from "fs";
+import express from 'express';
 import methodOverride from 'method-override';
 import { UserRepository } from './user-repository.js';
 import {PORT,SECRET_JWT_KEY} from './config.js'
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
-import routesNaus from './routes/naus.js';
-import routesPersonatges from './routes/personatges.js';
+import { readData } from './data.js';
+import { requireLogin } from './auth-middleware.js';
+import nausRouter from './routes/naus.js';
+import personatgesRouter from './routes/personatges.js';
+import flotaRouter from './routes/flota.js';
 
 const app = express();
 app.use(express.json());
@@ -22,22 +22,8 @@ app.use(express.static("public")); // Carrega CSS i altres fitxers públics
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride('_method'));
 
-const readData = () => {
-    try {
-        const data = fs.readFileSync("./db/db.json");
-        return JSON.parse(data);
-    } catch (error) {
-        console.log(error);
-    }
-};
-
-app.set('view engine', 'ejs');
-app.set('views', './views');
-
-app.get("/", (req, res) => {
-    const data = readData();
-    res.render('home', {data});
-});
+app.set('view engine', 'ejs'); // Motor de plantilles
+app.set('views', './views'); // Ubicació de les plantilles
 
 app.use((req,res,next)=>{
     const token =req.cookies.access_token
@@ -51,10 +37,14 @@ app.use((req,res,next)=>{
     next() // seguir a la siguiente ruta o middleware.
 })
 
+app.get('/', (req,res)=>{
+    const user = req.session.user
+    res.render('index', {user})
+})
+
 app.post('/register', async (req,res)=>{
     //aqui el body es el cuerpo de la petición
     const {username,password}=req.body
-    console.log(req.body)
     try{
         const id= await UserRepository.create({username,password});
         res.send({id})
@@ -67,16 +57,13 @@ app.post('/register', async (req,res)=>{
 app.post('/login', async (req,res)=>{
     try{
         const {username,password}=req.body
-        console.log("llego aqui")
         const user = await UserRepository.login({username,password})
-        console.log("llego aqui 1")
         const token = jwt.sign(
             {id: user._id, username: user.username},
             SECRET_JWT_KEY, 
             {
             expiresIn:'1h'
             })
-            console.log("llego aqui 2")
         res
         .cookie('access_token',token,{
             httpOnly:true, //la cookie solo se puede acceder en el servidor, no podrem fer un document.cookie
@@ -96,24 +83,31 @@ app.post('/logout',(req,res)=>{
     res
     .clearCookie('access_token')
     .json({message:'logout successfull'})
-    .send('logout');
 });
 
-app.get('/protected', async (req,res)=>{
-    const {user} = req.session
-    if(!user){
-        return res.status(401).send('acceso no autorizado')
-    }
-    const data = readData();
-    res.render('home',{username:user.username , data})
-})  
+app.get('/protected', requireLogin, (req,res)=>{
+    const naus = readData('Naus');
+    const personatges = readData('Personatges');
+    const user = req.session.user
 
-app.use(routesNaus);
-app.use(routesPersonatges);
+    res.render('protected',{naus, personatges, user})
+})
+
+app.get('/profile', requireLogin, (req,res)=>{
+    const user = req.session.user
+    res.render('profile', {user})
+})
+
+app.use(flotaRouter); 
+app.use(nausRouter);
+app.use(personatgesRouter);
+
+// Qualsevol altra ruta: 404 (abans els routers protegits responien 401 a tot)
+app.use((req,res)=>{
+    res.status(404).send('Pàgina no trobada')
+})
 
 
-
-// npm run dev
-app.listen(8000, () => {
-    console.log("Server listing on port 8000");
-});
+app.listen(PORT,()=>{
+    console.log(`Server running on port ${PORT}`)
+})
