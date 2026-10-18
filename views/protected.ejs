@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pont de comandament</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="pont">
+        <div class="contingut">
+            <header>
+                <p class="enllacos">
+                    <a class="enllac" href="/protected">Pont</a>
+                    <a class="enllac" href="/flota">Flota</a>
+                    <a class="enllac" href="/naus">Naus</a>
+                    <a class="enllac" href="/personatges">Personatges</a>
+                    <a class="enllac" href="/profile">Perfil</a>
+                    <a class="enllac" href="#" id="close-session">Tancar sessió</a>
+                </p>
+                <p class="etiqueta">Pont de comandament</p>
+                <h1>Benvingut a bord, <%= user.username %></h1>
+            </header>
+
+            <main>
+                <section class="lectures">
+                    <div class="lectura">
+                        <span class="xifra"><%= naus.filter(n => n.estat === 'En servei').length %>/<%= naus.length %></span>
+                        <span class="nom-lectura">Naus en servei</span>
+                    </div>
+                    <div class="lectura">
+                        <span class="xifra"><%= personatges.length %></span>
+                        <span class="nom-lectura">Personatges registrats</span>
+                    </div>
+                    <div class="lectura">
+                        <span class="xifra"><%= new Date(user.exp * 1000).toLocaleTimeString('ca-ES', { hour: '2-digit', minute: '2-digit' }) %></span>
+                        <span class="nom-lectura">La sessió caduca</span>
+                    </div>
+                </section>
+
+                <div class="dues-columnes">
+                    <section>
+                        <h2>Naus</h2>
+                        <ul class="llista">
+                            <% naus.slice(0, 4).forEach(nau => { %>
+                                <li>
+                                    <strong><%= nau.nom %></strong>
+                                    <span><%= nau.registre %> · <%= nau.estat %></span>
+                                </li>
+                            <% }) %>
+                        </ul>
+                        <a class="enllac" href="/naus">Veure totes les naus</a>
+                    </section>
+
+                    <section>
+                        <h2>Personatges</h2>
+                        <ul class="llista">
+                            <% personatges.slice(0, 4).forEach(personatge => { %>
+                                <li>
+                                    <strong><%= personatge.nom %></strong>
+                                    <span><%= personatge.rang %> · <%= personatge.especie %></span>
+                                </li>
+                            <% }) %>
+                        </ul>
+                        <a class="enllac" href="/personatges">Veure tots els personatges</a>
+                    </section>
+                </div>
+            </main>
+        </div>
+    </div>
+    <script src="/js/register.js"></script>
+</body>
+</html>

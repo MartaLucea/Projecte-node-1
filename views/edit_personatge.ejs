@@ -1,11 +1,77 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Editar personatge</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    Hello world
+    <div class="pont">
+        <div class="contingut">
+            <header>
+                <p class="enllacos">
+                    <a class="enllac" href="/protected">Pont</a>
+                    <a class="enllac" href="/flota">Flota</a>
+                    <a class="enllac" href="/naus">Naus</a>
+                    <a class="enllac" href="/personatges">Personatges</a>
+                    <a class="enllac" href="/profile">Perfil</a>
+                    <a class="enllac" href="#" id="close-session">Tancar sessió</a>
+                </p>
+                <p class="etiqueta">Registre de tripulació</p>
+                <h1>Editar personatge</h1>
+            </header>
+
+            <main>
+                <% if (error) { %>
+                    <p class="avis"><%= error %></p>
+                <% } %>
+
+                <form class="formulari" action="/personatges/<%= personatge.id %>?_method=PUT" method="POST">
+                    <div class="camp">
+                        <label for="nom">Nom</label>
+                        <input type="text" id="nom" name="nom" value="<%= personatge.nom || '' %>" required>
+                    </div>
+
+                    <div class="camp">
+                        <label for="especie">Espècie</label>
+                        <input type="text" id="especie" name="especie" value="<%= personatge.especie || '' %>" required>
+                    </div>
+
+                    <div class="camp">
+                        <label for="planeta">Planeta</label>
+                        <input type="text" id="planeta" name="planeta" value="<%= personatge.planeta || '' %>" required>
+                    </div>
+
+                    <div class="camp">
+                        <label for="rang">Rang</label>
+                        <select id="rang" name="rang" required>
+                        <% rangs.forEach(rang => { %>
+                            <option value="<%= rang %>" <%= personatge.rang === rang ? 'selected' : '' %>><%= rang %></option>
+                        <% }) %>
+                    </select>
+                    </div>
+
+                    <div class="camp">
+                        <label for="nauId">Nau</label>
+                        <select id="nauId" name="nauId" required>
+                        <% naus.forEach(nau => { %>
+                            <option value="<%= nau.id %>" <%= Number(personatge.nauId) === nau.id ? 'selected' : '' %>><%= nau.nom %> (<%= nau.registre %>)</option>
+                        <% }) %>
+                    </select>
+                    </div>
+
+                    <button type="submit" class="boto">Desar canvis</button>
+                </form>
+
+                <form class="formulari perill" action="/personatges/<%= personatge.id %>?_method=DELETE" method="POST" onsubmit="return confirm('Estàs segur que vols eliminar aquest personatge?');">
+                    <button type="submit" class="boto perill">Eliminar personatge</button>
+                </form>
+
+                <a class="enllac" href="/personatges">Tornar al llistat</a>
+            </main>
+        </div>
+    </div>
+    <script src="/js/register.js"></script>
 </body>
 </html>

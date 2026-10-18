@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="pont">
+        <div class="contingut">
+            <header>
+                <p class="enllacos">
+                    <a class="enllac" href="/protected">Pont</a>
+                    <a class="enllac" href="/flota">Flota</a>
+                    <a class="enllac" href="/naus">Naus</a>
+                    <a class="enllac" href="/personatges">Personatges</a>
+                    <a class="enllac" href="/profile">Perfil</a>
+                    <a class="enllac" href="#" id="close-session">Tancar sessió</a>
+                </p>
+                <p class="etiqueta">Dades de l'oficial</p>
+                <h1>Perfil</h1>
+            </header>
+
+            <main>
+                <section>
+                    <dl class="dades">
+                        <dt>Nom d'usuari</dt>
+                        <dd><%= user.username %></dd>
+
+                        <dt>Identificador</dt>
+                        <dd><%= user.id %></dd>
+
+                        <dt>Sessió iniciada</dt>
+                        <dd><%= new Date(user.iat * 1000).toLocaleString('ca-ES') %></dd>
+
+                        <dt>La sessió caduca</dt>
+                        <dd><%= new Date(user.exp * 1000).toLocaleString('ca-ES') %></dd>
+                    </dl>
+                </section>
+            </main>
+        </div>
+    </div>
+    <script src="/js/register.js"></script>
+</body>
+</html>

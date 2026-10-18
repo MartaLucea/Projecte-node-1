@@ -1,29 +1,64 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benvingut</title>
-    <link rel="stylesheet" type="text/css" href="/styles.css">
+    <title>Personatges</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <header>
-        <h1>Gestió de Personatges</h1>
-    </header>
-    <main>
-        <section>
-            <h2>Llista de Personatges</h2>
-            <ul class="product-list">
-                <% data.forEach(personatge => { %>
-                    <li class="product-item">
-                        <strong><%= personatge.nom %></strong>
-                        <span>Espècie: <%= personatge.especie %></span>
-                        <span>Preu: €<%= personatge.price %></span>
-                        <a href="/editPersonatge/<%= personatge.id %>">Editar</a>
-                    </li>
-                <% }) %>
-            </ul>
-        </section>
-    </main>
+    <div class="pont">
+        <div class="contingut">
+            <header>
+                <p class="enllacos">
+                    <a class="enllac" href="/protected">Pont</a>
+                    <a class="enllac" href="/flota">Flota</a>
+                    <a class="enllac" href="/naus">Naus</a>
+                    <a class="enllac" href="/personatges">Personatges</a>
+                    <a class="enllac" href="/profile">Perfil</a>
+                    <a class="enllac" href="#" id="close-session">Tancar sessió</a>
+                </p>
+                <p class="etiqueta">Registre de tripulació</p>
+                <h1>Gestió de Personatges</h1>
+            </header>
+
+            <main>
+                <section>
+                    <div class="accions">
+                        <h2>Llista de Personatges</h2>
+                        <a class="boto" href="/crearPersonatge">Afegir personatge</a>
+                    </div>
+
+                    <div class="taula-envoltori">
+                        <table class="taula">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Espècie</th>
+                                    <th>Planeta</th>
+                                    <th>Rang</th>
+                                    <th>Nau</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% personatges.forEach(personatge => { %>
+                                    <tr>
+                                        <td><strong><%= personatge.nom %></strong></td>
+                                        <td><%= personatge.especie %></td>
+                                        <td><%= personatge.planeta %></td>
+                                        <td><%= personatge.rang %></td>
+                                        <td><%= personatge.nau %></td>
+                                        <td><a class="enllac" href="/editPersonatge/<%= personatge.id %>">Editar</a></td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    <script src="/js/register.js"></script>
 </body>
 </html>

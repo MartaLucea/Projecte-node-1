@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personatges</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+    <div class="pont">
+        <div class="contingut">
+            <header>
+                <p class="enllacos">
+                    <% if (user) { %>
+                        <a class="enllac" href="/protected">Pont</a>
+                        <a class="enllac" href="/flota">Flota</a>
+                        <a class="enllac" href="/naus">Naus</a>
+                        <a class="enllac" href="/personatges">Personatges</a>
+                        <a class="enllac" href="/profile">Perfil</a>
+                        <a class="enllac" href="#" id="close-session">Tancar sessió</a>
+                    <% } else { %>
+                        <a class="enllac" href="/">Iniciar sessió</a>
+                        <a class="enllac" href="/flota">Flota</a>
+                    <% } %>
+                </p>
+                <p class="etiqueta">Registre de tripulació</p>
+                <h1><%= nau.nom %></h1>
+            </header>
+
+            <main>
+                <section>
+                    <section class="lectures">
+                    <div class="lectura">
+                        <span class="nom-lectura">Registre</span>
+                        <span class="xifra"><%= nau.registre %></span>
+                        
+                    </div>
+                    <div class="lectura">
+                        <span class="nom-lectura">Classe</span>
+                        <span class="xifra"><%= nau.classe %></span>
+                    </div>
+                    <div class="lectura">
+                        <span class="nom-lectura">Capacitat de la nau</span>
+                        <span class="xifra"><%= nau.capacitat %></span>
+                    </div>
+                </section>
+                </section>
+                <section>
+                    <div class="accions">
+                        <h2>Llista de Tripulans</h2>
+                    </div>
+
+                    <div class="taula-envoltori">
+                        <table class="taula">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Espècie</th>
+                                    <th>Planeta</th>
+                                    <th>Rang</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% personatges.forEach(personatge => { %>
+                                    <tr>
+                                        <td><strong><%= personatge.nom %></strong></td>
+                                        <td><%= personatge.especie %></td>
+                                        <td><%= personatge.planeta %></td>
+                                        <td><%= personatge.rang %></td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+<% if (user) { %><script src="/js/register.js"></script><% } %>
+</body>
+</html>

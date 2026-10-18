@@ -1,29 +1,70 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ca">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Benvingut</title>
-    <link rel="stylesheet" type="text/css" href="/styles.css">
+    <title>Naus</title>
+    <link rel="stylesheet" href="/css/styles.css">
 </head>
 <body>
-    <header>
-        <h1>Gestió de Personatges</h1>
-    </header>
-    <main>
-        <section>
-            <h2>Llista de Naus</h2>
-            <ul class="product-list">
-                <% data.forEach(nau => { %>
-                    <li class="product-item">
-                        <strong><%= nau.nom %></strong>
-                        <span>Espècie: <%= nau.capacitat %></span>
-                        <span>Preu: €<%= nau.tripulacio %></span>
-                        <a href="/editNau/<%= nau.id %>">Editar</a>
-                    </li>
-                <% }) %>
-            </ul>
-        </section>
-    </main>
+    <div class="pont">
+        <div class="contingut">
+            <header>
+                <p class="enllacos">
+                    <a class="enllac" href="/protected">Pont</a>
+                    <a class="enllac" href="/flota">Flota</a>            
+                    <a class="enllac" href="/naus">Naus</a>
+                    <a class="enllac" href="/personatges">Personatges</a>
+                    <a class="enllac" href="/profile">Perfil</a>
+                    <a class="enllac" href="#" id="close-session">Tancar sessió</a>
+                </p>
+                <p class="etiqueta">Registre de naus</p>
+                <h1>Gestió de Naus</h1>
+            </header>
+
+            <main>
+                <section>
+                    <% if (error) { %>
+                        <p class="avis"><%= error %></p>
+                    <% } %>
+
+                    <div class="accions">
+                        <h2>Llista de Naus</h2>
+                        <a class="boto" href="/crearNau">Afegir nau</a>
+                    </div>
+
+                    <div class="taula-envoltori">
+                        <table class="taula">
+                            <thead>
+                                <tr>
+                                    <th>Nom</th>
+                                    <th>Registre</th>
+                                    <th>Classe</th>
+                                    <th>Capacitat</th>
+                                    <th>Tripulació</th>
+                                    <th>Estat</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% naus.forEach(nau => { %>
+                                    <tr>
+                                        <td><strong><%= nau.nom %></strong></td>
+                                        <td><%= nau.registre %></td>
+                                        <td><%= nau.classe %></td>
+                                        <td><%= nau.capacitat %></td>
+                                        <td><%= nau.assignats %></td>
+                                        <td><span class="estat" data-estat="<%= nau.estat %>"><%= nau.estat %></span></td>
+                                        <td><a class="enllac" href="/editNau/<%= nau.id %>">Editar</a></td>
+                                    </tr>
+                                <% }) %>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+    <script src="/js/register.js"></script>
 </body>
 </html>

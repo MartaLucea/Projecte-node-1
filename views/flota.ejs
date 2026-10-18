@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Naus</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+   <div class="pont">
+        <div class="contingut">
+            <header>
+                <p class="enllacos">
+                    <% if (user) { %>
+                        <a class="enllac" href="/protected">Pont</a>
+                        <a class="enllac" href="/flota">Flota</a>
+                        <a class="enllac" href="/naus">Naus</a>
+                        <a class="enllac" href="/personatges">Personatges</a>
+                        <a class="enllac" href="/profile">Perfil</a>
+                        <a class="enllac" href="#" id="close-session">Tancar sessió</a>
+                    <% } else { %>
+                        <a class="enllac" href="/">Iniciar sessió</a>
+                        <a class="enllac" href="/flota">Flota</a>
+                    <% } %>
+                </p>
+                <p class="etiqueta">Consulta pública</p>
+                <h1>La flota</h1>
+            </header>
+
+            <main>
+                <div class="taula-envoltori">
+                    <table class="taula">
+                        <thead>
+                            <tr>
+                                <th>Nom</th>
+                                <th>Registre</th>
+                                <th>Classe</th>
+                                <th>Capacitat</th>
+                                <th>Tripulació</th>
+                                <th>Estat</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% naus.forEach(nau => { %>
+                                <tr>
+                                    <td><strong><%= nau.nom %></strong></td>
+                                    <td><%= nau.registre %></td>
+                                    <td><%= nau.classe %></td>
+                                    <td><%= nau.capacitat %></td>
+                                    <td><%= nau.assignats %></td>
+                                    <td><span class="estat" data-estat="<%= nau.estat %>"><%= nau.estat %></span></td>
+                                    <td><a class="enllac" href="/flota/<%= nau.id %>">Veure detalls</a></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+        </div>
+    </div>
+<% if (user) { %><script src="/js/register.js"></script><% } %>
+</body>
+</html>
