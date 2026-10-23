@@ -17,7 +17,7 @@ Aplicació web amb **Node.js**, **Express** i **EJS** per gestionar una flota de
 ├── server.js              # Servidor, middleware JWT i rutes d'autenticació
 ├── config.js              # PORT, SALT_ROUNDS, SECRET_JWT_KEY
 ├── auth-middleware.js     # requireLogin: protegeix les rutes
-├── user-repository.js     # Registre i login d'usuaris (bcrypt)
+├── user-repository.js     # Registre i login d'usuaris (bcryptjs)
 ├── data.js                # Lectura/escriptura dels JSON
 ├── routes/                # naus.js, personatges.js, flota.js
 ├── views/                 # Plantilles EJS
@@ -40,7 +40,7 @@ Variables opcionals (a `config.js`): `PORT`, `SALT_ROUNDS` i `SECRET_JWT_KEY` (c
 
 ## Autenticació
 
-- `POST /register`: crea un usuari (nom mínim 3 caràcters, contrasenya mínima 6). La contrasenya es guarda encriptada amb **bcrypt**.
+- `POST /register`: crea un usuari (nom mínim 3 caràcters, contrasenya mínima 6). La contrasenya es guarda encriptada amb **bcryptjs**.
 - `POST /login`: valida les credencials i genera un **JWT que caduca en 1 hora**.
 - El token es guarda en una **cookie** `access_token` amb `httpOnly`, `sameSite: strict` i `secure` (en producció).
 - Un middleware valida el token a cada petició i carrega l'usuari a `req.session.user`.
@@ -160,3 +160,11 @@ Les proves s'han fet amb **REST Client** (VS Code) usant el fitxer `proves.http`
 
 #### Perfil
 ![Perfil](captures/19-profile.png)
+
+
+
+## Usuari de prova
+
+| Usuari | Contrasenya |
+| --- | --- |
+| alumne1 | secret123 |

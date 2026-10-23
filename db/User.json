@@ -1,1 +1,7 @@
-[{"_id":"dc5ac918-a8d8-4e6d-9809-0524579db8d8","username":"alumne1","password":"$2b$10$1clh9Cifp3kjfqskzFyUC.n3CaSgnZZuxg.3tLfs0EGc5Xivf/eEq"},{"_id":"d74d843f-6427-4209-90d7-6944dd57d665","username":"ghhj","password":"$2b$10$ebrR6kvIkhHUFKHVcJ0p8.YeMhXOF8.USKVovtyHiQjkmkkuYC4Ym"},{"_id":"38715d66-3508-4b19-8d78-7d4990a8f6ca","username":"dfhgfh","password":"$2b$10$e6pDKvuRcnkkQDSDSAsM7.iLU1uk5h/cb47MUQZOmSphE5OKaw9rO"},{"_id":"af04d915-a69a-4ea5-b6b7-fd4a81d23517","username":"gyj","password":"$2b$10$I7Jnktjlz/QrR7cRHyeu9.8gFhVPDbZAUouRw9P2KwOCQws64JmVu"},{"_id":"e0fd2a12-e31c-4171-8f4e-d76e896a15e6","username":"sdg","password":"$2b$10$DJTneAAYX7D7ahc3KUOMfOoLQw.JMGjLuOjfO.TrwO4QBpX.qXxv6"},{"_id":"c3545224-8ede-411f-a432-0b7750a4b0d7","username":"ojsdn","password":"$2b$10$w6JP.pYLN5t7fwCHjfRkrO/0ekdzY0QZB1Uscc/bEjf31z8d8RoFq"},{"_id":"125adf11-c7bc-4208-bc37-487b6c7b6f9a","username":"Marta","password":"$2b$10$I5wau/OLgluDKv1zumO5uO3/Il8T/Vi22jBubJciBTPsfVaPNreJe"},{"_id":"5d1c2f0e-8b7a-4c3e-9a41-2f6e7b0c9d11","username":"picard","password":"$2b$10$d.KA0EJpAcJU8CUtVkviG.wCHM4.DcX1fGMPdYdvNgC90OCxgZ/8K"}]
+[
+    {
+        "_id": "411adc7d-e3e7-4b23-8be4-e0eb49539116",
+        "username": "usuari-prova",
+        "password": "$2b$10$3km6NxjxrWTR/s5Xf29Mjesuo4clitRmqJvFW1ikFGTXeEZpDNSKa"
+    }
+]
