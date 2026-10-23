@@ -43,8 +43,8 @@ const validarPersonatge = (body, naus, personatges, idActual) => {
     }
     // La nau ha de tenir lloc per a aquest personatge (sense comptar-lo si l'editem).
     const assignats = personatges.filter(p => p.nauId === nauId && p.id !== idActual).length;
-    if (assignats >= nau.tripulacio) {
-        return `${nau.nom} ja té la tripulació completa (${nau.tripulacio})`;
+    if (assignats >= nau.capacitat) {
+        return `${nau.nom} ja té la tripulació completa (${nau.capacitat})`;
     }
     return null;
 };

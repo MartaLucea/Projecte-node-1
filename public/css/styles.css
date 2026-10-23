@@ -312,7 +312,7 @@ body.portada {
 .portada-contingut .boto { margin-right: 0.6rem; }
 
 .acces {
-  width: 100%;
+  width: 50%;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 1.5rem;

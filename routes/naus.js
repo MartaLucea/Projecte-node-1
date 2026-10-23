@@ -23,7 +23,6 @@ const validarNau = (body, naus, personatges, idActual) => {
     const registre = text(body.registre);
     const classe = text(body.classe);
     const capacitat = Number(body.capacitat);
-    const tripulacio = Number(body.tripulacio);
 
     if (!nom || !registre || !classe) {
         return 'El nom, el registre i la classe són obligatoris';

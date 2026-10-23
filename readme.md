@@ -1,103 +1,162 @@
-# Sistema d'autenticació i CRUD
+# Sistema complet amb autenticació i CRUD
 
-Aplicació web desenvolupada amb Node.js, Express i EJS per gestionar una flota de naus i els seus personatges. Inclou registre i inici de sessió amb JWT, i protegeix les operacions CRUD perquè només les puguin fer usuaris autenticats.
+Aplicació web amb **Node.js**, **Express** i **EJS** per gestionar una flota de naus de Star Trek i els seus personatges. Té registre i inici de sessió amb **JWT** i dos CRUD complets (**Naus** i **Personatges**) que només poden fer servir els usuaris autenticats.
 
-## Funcionalitats
+## Tecnologies
 
-- Registre d'usuaris i inici i tancament de sessió.
-- Contrasenyes protegides amb hash mitjançant `bcryptjs`.
-- Autenticació amb JWT signat, guardat en una cookie `httpOnly`, `sameSite: strict` i d'una hora de durada. L'opció `secure` s'activa en entorns de producció.
-- Middleware que valida el JWT i carrega l'usuari a `req.session.user`.
-- CRUD complet de naus i personatges, amb interfície EJS.
-- Persistència dels recursos en fitxers JSON dins de `db/`; usuaris gestionats amb `db-local`.
-- Validacions i regles de negoci per mantenir coherents les dades de naus i tripulacions.
+- Node.js + Express 5
+- EJS (plantilles)
+- `bcryptjs` (hash de contrasenyes)
+- `jsonwebtoken` (JWT) + `cookie-parser`
+- `method-override` (PUT i DELETE des dels formularis)
+- Dades en fitxers `.json` (`db/`)
 
-## Requisits i posada en marxa
+## Estructura del projecte
 
-Cal tenir instal·lat Node.js 18 o superior.
+```
+├── server.js              # Servidor, middleware JWT i rutes d'autenticació
+├── config.js              # PORT, SALT_ROUNDS, SECRET_JWT_KEY
+├── auth-middleware.js     # requireLogin: protegeix les rutes
+├── user-repository.js     # Registre i login d'usuaris (bcrypt)
+├── data.js                # Lectura/escriptura dels JSON
+├── routes/                # naus.js, personatges.js, flota.js
+├── views/                 # Plantilles EJS
+├── public/                # CSS i JS del navegador
+├── db/                    # User.json, Naus.json, Personatges.json (dades d'exemple)
+├── captures/              # Captures de les proves
+└── proves.http            # Proves amb REST Client
+```
+
+## Posada en marxa
 
 ```bash
 npm install
 npm run dev
 ```
 
-El servidor s'inicia a <http://localhost:3000>. També es pot executar amb `npm start`.
+El servidor arrenca a <http://localhost:5000>.
 
-La configuració es troba a `config.js`. Abans de desplegar l'aplicació, defineix `SECRET_JWT_KEY` amb un valor secret i propi de l'entorn; el valor inclòs al codi és només per a desenvolupament. També es poden configurar `PORT` i `SALT_ROUNDS`.
-
-PowerShell:
-
-```powershell
-$env:SECRET_JWT_KEY = "posa-hi-un-secret-propi"
-$env:PORT = "3000"
-npm start
-```
+Variables opcionals (a `config.js`): `PORT`, `SALT_ROUNDS` i `SECRET_JWT_KEY` (canvia-la en producció).
 
 ## Autenticació
 
-1. A la pàgina d'inici (`/`) hi ha els formularis d'inici de sessió i de registre un al costat de l'altre; l'usuari tria el que vol fer. El registre demana un nom d'usuari d'almenys 3 caràcters i una contrasenya d'almenys 6.
-2. En iniciar sessió correctament, el servidor crea un JWT amb una caducitat d'una hora i el desa a la cookie `access_token`.
-3. El middleware valida la cookie a cada petició. Si falta o el token ha caducat, les rutes protegides responen amb la pàgina d'error 401.
-4. Per tancar la sessió, s'envia una petició `POST` a `/logout`, que elimina la cookie.
+- `POST /register`: crea un usuari (nom mínim 3 caràcters, contrasenya mínima 6). La contrasenya es guarda encriptada amb **bcrypt**.
+- `POST /login`: valida les credencials i genera un **JWT que caduca en 1 hora**.
+- El token es guarda en una **cookie** `access_token` amb `httpOnly`, `sameSite: strict` i `secure` (en producció).
+- Un middleware valida el token a cada petició i carrega l'usuari a `req.session.user`.
+- `POST /logout`: elimina la cookie.
+- `GET /protected` i `GET /profile`: pàgines només per a usuaris autenticats.
+- Sense sessió, les rutes protegides responen **401**.
 
 ## Rutes
 
-Les rutes de naus i personatges requereixen autenticació. Els formularis de la web utilitzen EJS i les operacions d'actualització i eliminació fan servir `PUT` i `DELETE` mitjançant `method-override`.
-
-### Autenticació i pàgines
-
-| Mètode | Ruta | Descripció | Accés |
-| --- | --- | --- | --- |
-| `GET` | `/` | Pàgina d'inici amb els formularis d'inici de sessió i de registre | Públic |
-| `POST` | `/register` | Crea un usuari | Públic |
-| `POST` | `/login` | Valida les credencials i crea la cookie JWT | Públic |
-| `POST` | `/logout` | Tanca la sessió i elimina la cookie | Públic |
-| `GET` | `/protected` | Mostra informació protegida de naus i personatges | Autenticat |
-| `GET` | `/profile` | Pàgina del perfil | Autenticat |
-
-### Naus
+### Públiques
 
 | Mètode | Ruta | Descripció |
 | --- | --- | --- |
-| `GET` | `/naus` | Llista les naus |
-| `GET` | `/crearNau` | Mostra el formulari de creació |
-| `POST` | `/naus` | Crea una nau |
-| `GET` | `/editNau/:id` | Mostra el formulari d'edició |
-| `PUT` | `/naus/:id` | Actualitza una nau |
-| `DELETE` | `/naus/:id` | Elimina una nau |
+| GET | `/` | Pàgina d'inici amb login i registre |
+| POST | `/register` | Registre d'usuari |
+| POST | `/login` | Inici de sessió |
+| POST | `/logout` | Tancar sessió |
+| GET | `/flota`, `/flota/:id` | Llistat i detall de la flota |
 
-### Personatges
+### Protegides (cal estar autenticat)
 
 | Mètode | Ruta | Descripció |
 | --- | --- | --- |
-| `GET` | `/personatges` | Llista els personatges |
-| `GET` | `/crearPersonatge` | Mostra el formulari de creació |
-| `POST` | `/personatges` | Crea un personatge |
-| `GET` | `/editPersonatge/:id` | Mostra el formulari d'edició |
-| `PUT` | `/personatges/:id` | Actualitza un personatge |
-| `DELETE` | `/personatges/:id` | Elimina un personatge |
+| GET | `/protected` | Pàgina privada |
+| GET | `/profile` | Perfil de l'usuari |
+| GET | `/naus` | Llistar naus |
+| GET | `/crearNau` | Formulari de creació |
+| POST | `/naus` | Crear nau |
+| GET | `/editNau/:id` | Formulari d'edició |
+| PUT | `/naus/:id` | Actualitzar nau |
+| DELETE | `/naus/:id` | Eliminar nau |
+| GET | `/personatges` | Llistar personatges |
+| GET | `/crearPersonatge` | Formulari de creació |
+| POST | `/personatges` | Crear personatge |
+| GET | `/editPersonatge/:id` | Formulari d'edició |
+| PUT | `/personatges/:id` | Actualitzar personatge |
+| DELETE | `/personatges/:id` | Eliminar personatge |
 
-## Validacions i regles de negoci
+## Regles de negoci
 
-- Les dades requerides i els valors de rang i estat s'han de validar abans de desar-se.
-- No es permeten noms duplicats de naus o personatges ni registres de nau repetits.
-- La tripulació d'una nau no pot superar la seva capacitat ni quedar per sota dels personatges que hi té assignats.
-- No es pot retirar ni eliminar una nau que tingui personatges assignats.
-- Cada personatge ha d'estar assignat a una nau existent i no retirada, i la nau no pot superar el nombre de tripulants establert.
+- Només els usuaris autenticats poden accedir als CRUD.
+- El nom i el registre d'una nau són únics; el nom d'un personatge també.
+- L'estat de la nau ha de ser `En servei`, `En reparació` o `Retirada`.
+- No es pot retirar ni eliminar una nau amb personatges assignats.
+- Un personatge ha d'estar assignat a una nau existent i no retirada.
+- Una nau no pot tenir més personatges que la seva capacitat.
 
-## Dades i estructura
+## Dades d'exemple
 
-- `db/Naus.json` i `db/Personatges.json`: dades de mostra i persistència dels CRUD.
-- `db/User.json`: persistència dels usuaris mitjançant `db-local`.
-- `routes/`: rutes i lògica CRUD de cada recurs.
-- `views/`: plantilles EJS.
-- `public/`: fulls d'estil i JavaScript del navegador.
-- `auth-middleware.js`: protecció de les rutes autenticades.
-- `user-repository.js`: registre, validació i inici de sessió.
-- `proves.http`: peticions d'exemple i proves amb l'extensió REST Client de VS Code.
+Els fitxers `db/Naus.json`, `db/Personatges.json` i `db/User.json` contenen dades d'exemple.
 
 ## Proves
 
-1. Engega el servidor amb `npm run dev`.
-2. Obre `proves.http` a VS Code i executa les peticions per blocs. Registra o utilitza un usuari existent i inicia sessió per obtenir el token.
-3. Les peticions protegides del fitxer utilitzen el token com a cookie `access_token`. Comprova tant els casos correctes com els errors d'autenticació i de validació indicats als comentaris del fitxer.
+Les proves s'han fet amb **REST Client** (VS Code) usant el fitxer `proves.http`.
+
+### 1. Registre d'usuari
+#### Registre correcte
+![Registre correcte](captures/01-registre-ok.png)
+
+#### Registre amb usuari duplicat (400)
+![Registre amb usuari duplicat (400)](captures/02-registre-duplicat.png)
+
+#### Registre amb dades invàlides (contrasenya curta)
+![Registre amb dades invàlides (contrasenya curta)](captures/03-contrasenya-curta.png)
+
+### 2. Login
+#### Login incorrecte (401)
+![Login incorrecte (401)](captures/04-login-error.png)
+
+#### Login correcte i cookie access_token
+![Login correcte i cookie access_token](captures/05-login-ok.png)
+
+### 3. Accés a rutes protegides
+#### Sense login: 401
+![Sense login: 401](captures/06-naus-sense-login.png)
+
+#### Amb login: 200
+![Amb login: 200](captures/07-naus-amb-login.png)
+
+### 4. CRUD de naus
+#### Crear nau (302)
+![Crear nau (302)](captures/08-crear-nau.png)
+
+#### Crear nau duplicada (400)
+![Crear nau duplicada (400)](captures/09-nau-duplicada.png)
+
+#### Editar nau
+![Editar nau](captures/10-editar-nau.png)
+
+#### Eliminar nau amb personatges (409)
+![Eliminar nau amb personatges (409)](captures/11-eliminar-nau-409.png)
+
+### 5. CRUD de personatges
+#### Crear personatge
+![Crear personatge](captures/12-crear-personatge.png)
+
+#### Personatge en nau inexistent (400)
+![Personatge en nau inexistent (400)](captures/13-personatge-error.png)
+
+#### Editar personatge
+![Editar personatge](captures/14-editar-personatge.png)
+
+#### Eliminar personatge
+![Eliminar personatge](captures/15-eliminar-personatge.png)
+
+### 6. Logout
+
+![Logout](captures/16-logout.png)
+
+### 7. Interfície EJS
+
+#### Pàgina d'inici
+![Pàgina d'inici](captures/17-index.png)
+
+#### Pàgina protegida
+![Pàgina protegida](captures/18-protected.png)
+
+#### Perfil
+![Perfil](captures/19-profile.png)

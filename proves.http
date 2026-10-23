@@ -1,0 +1,105 @@
+@host = http://localhost:5000
+
+### 1. Registre correcte
+POST {{host}}/register
+Content-Type: application/json
+
+{ "username": "alumne1", "password": "secret123" }
+
+### 2. Registre duplicat -> 400
+POST {{host}}/register
+Content-Type: application/json
+
+{ "username": "alumne1", "password": "secret123" }
+
+### 3. Registre amb dades invàlides (contrasenya curta) -> 400
+POST {{host}}/register
+Content-Type: application/json
+
+{ "username": "alumne2", "password": "123" }
+
+### 4. Naus SENSE login -> 401
+GET {{host}}/naus
+
+### 5. Login incorrecte -> 401
+POST {{host}}/login
+Content-Type: application/json
+
+{ "username": "alumne1", "password": "incorrecta" }
+
+### 6. Login correcte -> 200 + cookie access_token
+POST {{host}}/login
+Content-Type: application/json
+
+{ "username": "alumne1", "password": "secret123" }
+
+### 7. Naus AMB login -> 200
+GET {{host}}/naus
+
+### 8. Ruta protegida AMB login -> 200
+GET {{host}}/protected
+
+### 9. Perfil -> 200
+GET {{host}}/profile
+
+### ---------- CRUD NAUS ----------
+
+### 10. Llistar naus -> 200
+GET {{host}}/naus
+
+### 11. Crear nau -> 302
+POST {{host}}/naus
+Content-Type: application/x-www-form-urlencoded
+
+nom=USS Prova&registre=NCC-9999&classe=Prova&capacitat=2&estat=En servei
+
+### 12. Crear nau duplicada -> 400
+POST {{host}}/naus
+Content-Type: application/x-www-form-urlencoded
+
+nom=USS Prova&registre=NCC-9999&classe=Prova&capacitat=2&estat=En servei
+
+### 13. Editar nau -> 302
+PUT {{host}}/naus/6
+Content-Type: application/x-www-form-urlencoded
+
+nom=USS Prova II&registre=NCC-9999&classe=Prova&capacitat=2&estat=En servei
+
+
+### ---------- CRUD PERSONATGES ----------
+
+### 14. Llistar personatges -> 200
+GET {{host}}/personatges
+
+### 15. Crear personatge a la nau 6 -> 302
+POST {{host}}/personatges
+Content-Type: application/x-www-form-urlencoded
+
+nom=Prova Dos&especie=Humà&planeta=Terra&rang=Cadet&nauId=6
+
+### 15. Crear personatge amb nau inexistent -> 400
+POST {{host}}/personatges
+Content-Type: application/x-www-form-urlencoded
+
+nom=Prova Dos&especie=Humà&planeta=Terra&rang=Cadet&nauId=999
+
+### 16. Editar personatge -> 302
+PUT {{host}}/personatges/11
+Content-Type: application/x-www-form-urlencoded
+
+nom=Prova Un Editat&especie=Humà&planeta=Terra&rang=Alferes&nauId=6
+
+### 17. Eliminar nau amb personatges -> 409
+DELETE {{host}}/naus/6
+
+### 18. Eliminar personatge -> 302
+DELETE {{host}}/personatges/11
+
+### 19. Eliminar nau (ja sense personatges) -> 302
+DELETE {{host}}/naus/6
+
+### 20. Logout -> 200
+POST {{host}}/logout
+
+### 21. Després del logout -> 401
+GET {{host}}/naus

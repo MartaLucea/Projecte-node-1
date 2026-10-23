@@ -38,5 +38,13 @@
     "classe": "Crossfield",
     "capacitat": 30,
     "estat": "En reparació"
+  },
+  {
+    "id": 6,
+    "nom": "USS Prova II",
+    "registre": "NCC-9999",
+    "classe": "Prova",
+    "capacitat": 2,
+    "estat": "En servei"
   }
 ]
