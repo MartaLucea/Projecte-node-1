@@ -320,3 +320,8 @@ body.portada {
 }
 .acces .formulari { grid-template-columns: 1fr; align-items: stretch; margin-top: 0; }
 .acces .formulari h3 { margin: 0; color: var(--primary); }
+
+
+.hidden{
+  display: none;
+}

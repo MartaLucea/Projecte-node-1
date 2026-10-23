@@ -31,8 +31,8 @@ const validarNau = (body, naus, personatges, idActual) => {
     if (!estats.includes(body.estat)) {
         return 'L\'estat de la nau no és vàlid';
     }
-    if (!Number.isInteger(capacitat) || capacitat <= 0 || !Number.isInteger(tripulacio) || tripulacio <= 0) {
-        return 'La capacitat i la tripulació han de ser nombres enters més grans que 0';
+    if (!Number.isInteger(capacitat) || capacitat <= 0) {
+        return 'La capacitat ha de ser nombres enters més grans que 0';
     }
 
     // El nom i el registre han de ser únics.

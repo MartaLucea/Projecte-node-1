@@ -15,7 +15,6 @@
     "capacitat": 1500,
     "estat": "En servei"
   },
-  
   {
     "id": 3,
     "nom": "USS Defiant",
@@ -37,15 +36,7 @@
     "nom": "USS Discovery",
     "registre": "NCC-1031",
     "classe": "Crossfield",
-    "capacitat": 300,
-    "estat": "En reparació"
-  },
-  {
-    "id": 6,
-    "nom": "proba",
-    "registre": "NCC-2007",
-    "classe": "Galaxi",
-    "capacitat": 10,
+    "capacitat": 30,
     "estat": "En reparació"
   }
 ]

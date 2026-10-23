@@ -13,6 +13,22 @@ const showMessage = (span, text, classe) => {
     span.className = classe;
 };
 
+
+
+const changeLogin = $('#login')
+const changeRegister = $('#registrar')
+
+changeLogin?.addEventListener('click', () =>{
+    loginForm.classList.remove('hidden')
+    registerForm.classList.add('hidden')
+})
+
+changeRegister?.addEventListener('click', () =>{
+    registerForm.classList.remove('hidden')
+    loginForm.classList.add('hidden')
+})
+
+
 // Fa la petició de login. Es fa servir al login i després de registrar-se
 const login = (username, password) => {
     return fetch('/login', {
@@ -66,13 +82,12 @@ registerForm?.addEventListener('submit', e => {
     })
         .then(res => {
             if (res.ok) {
-                showMessage(registerSpan, 'Usuari registrat. Entrant...', 'ok');
-                // El registre no crea la sessió, així que fem login amb les mateixes dades
-                login(username, password).then(() => {
-                    setTimeout(() => {
-                        window.location.href = '/protected';
-                    }, 1000);
-                });
+                showMessage(registerSpan, 'Usuari registrat. Inicia sessió...', 'ok');
+                
+                setTimeout(() => {
+                    registerForm.classList.add('hidden');
+                    loginForm.classList.remove('hidden');
+                }, 1000);
             } else {
                 res.text().then(text => showMessage(registerSpan, text, 'error'));
             }
@@ -81,6 +96,7 @@ registerForm?.addEventListener('submit', e => {
             showMessage(registerSpan, 'No s\'ha pogut connectar amb el servidor', 'error');
         });
 });
+
 logoutButton?.addEventListener('click', e => {
     e.preventDefault();
     fetch('/logout', {

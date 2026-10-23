@@ -33,11 +33,14 @@
                         <label for="login-password">Contrasenya</label>
                         <input type="password" id="login-password" name="password" autocomplete="current-password" required>
                     </div>
-                    <button type="submit" class="boto">Entrar</button>
+                    <div>
+                        <button type="submit" class="boto">Entrar</button>
+                        <a boto class="boto secundari" id="registrar"> Registrar-se</a>
+                    </div>
                     <span>&nbsp;</span>
                 </form>
-
-                <form id="register-form" class="formulari">
+                
+                <form id="register-form" class="formulari hidden">
                     <h3>Crear compte</h3>
                     <div class="camp">
                         <label for="register-username">Nom d'usuari</label>
@@ -51,7 +54,10 @@
                         <label for="register-confirm-password">Repeteix la contrasenya</label>
                         <input type="password" id="register-confirm-password" name="confirm-password" autocomplete="new-password" required>
                     </div>
-                    <button type="submit" class="boto">Registrar-me</button>
+                    <div>
+                        <button type="submit" class="boto">Registrar-me</button>
+                        <a boto class="boto secundari" id="login"> Login</a>
+                    </div>
                     <span>&nbsp;</span>
                 </form>
             </div>
